@@ -28,10 +28,10 @@ public class FormUserDetailsService implements UserDetailsService {
         if (account == null) {
             throw new UsernameNotFoundException("No user found with username: " + username);
         }
-        List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(account.getRoles()));
+        List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(account.getRoles())); //권한설정
         ModelMapper mapper = new ModelMapper();
         AccountDto accountDto = mapper.map(account, AccountDto.class);
 
-        return new AccountContext(accountDto, authorities);
+        return new AccountContext(accountDto, authorities); //AccounjtContext는 UserDetiles를 구현한 클래스로서 AccountDto를 Wrapping함
     }
 }

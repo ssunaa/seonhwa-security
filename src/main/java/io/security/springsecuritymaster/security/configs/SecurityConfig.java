@@ -25,7 +25,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated())
 
                 .formLogin(form -> form.loginPage("/login").permitAll())
-                .userDetailsService(userDetailsService)
+                .userDetailsService(userDetailsService) //커스텀 UserDetailService 설정
         ;
         return http.build();
     }
