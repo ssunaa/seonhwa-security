@@ -25,7 +25,6 @@ public class SecurityConfig {
                         .requestMatchers("/css/**", "/images/**", "/js/**", "/favicon.*", "/*/icon-*").permitAll()
                         .requestMatchers("/","/signup").permitAll()
                         .anyRequest().authenticated())
-
                 .formLogin(form -> form.loginPage("/login").permitAll())
                 .authenticationProvider(authenticationProvider) //provider에서 커스텀UserDetailService를 사용
         ;
