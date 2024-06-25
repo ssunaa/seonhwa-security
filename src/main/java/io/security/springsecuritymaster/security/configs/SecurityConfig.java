@@ -38,7 +38,8 @@ public class SecurityConfig {
                         .permitAll())
                 .authenticationProvider(authenticationProvider) //provider에서 커스텀UserDetailService를 사용
                 .exceptionHandling(exception -> exception
-                        .accessDeniedHandler(new FormAccessDeniedHandler("/denied")))
+                        .accessDeniedHandler(new FormAccessDeniedHandler("/denied"))
+                )
         ;
         return http.build();
     }

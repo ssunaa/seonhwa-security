@@ -37,10 +37,10 @@ public class LoginController {
         return "redirect:/login";
     }
 
-    @GetMapping("/denied")
-    public String accessDenied(@RequestParam(value="exception", required = false) String exception, @AuthenticationPrincipal AccountDto dto, Model model) {
+    @GetMapping(value="/denied")
+    public String accessDenied(@RequestParam(value = "exception", required = false) String exception, @AuthenticationPrincipal AccountDto accountDto, Model model) {
 
-        model.addAttribute("username", dto.getUsername());
+        model.addAttribute("username", accountDto.getUsername());
         model.addAttribute("exception", exception);
 
         return "login/denied";
