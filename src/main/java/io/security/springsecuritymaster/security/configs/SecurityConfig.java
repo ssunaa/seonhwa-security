@@ -1,6 +1,5 @@
 package io.security.springsecuritymaster.security.configs;
 
-import io.security.springsecuritymaster.security.details.FormWebAuthenticationDetails;
 import io.security.springsecuritymaster.security.details.FormWebAuthenticationDetailsSource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -8,10 +7,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @EnableWebSecurity
 @Configuration
@@ -20,6 +18,8 @@ public class SecurityConfig {
 
     private final AuthenticationProvider authenticationProvider;
     private final FormWebAuthenticationDetailsSource detailsSource;
+    private final AuthenticationSuccessHandler successHandler;
+    private final AuthenticationFailureHandler failureHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -32,6 +32,8 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .authenticationDetailsSource(detailsSource) //커스텀 AuthenticationDetailsSource 설정
+                        .successHandler(successHandler)
+                        .failureHandler(failureHandler)
                         .permitAll())
                 .authenticationProvider(authenticationProvider) //provider에서 커스텀UserDetailService를 사용
         ;
