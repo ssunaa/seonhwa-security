@@ -1,6 +1,7 @@
 package io.security.springsecuritymaster.security.configs;
 
 import io.security.springsecuritymaster.security.details.FormWebAuthenticationDetailsSource;
+import io.security.springsecuritymaster.security.handler.FormAccessDeniedHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,6 +37,8 @@ public class SecurityConfig {
                         .failureHandler(failureHandler)
                         .permitAll())
                 .authenticationProvider(authenticationProvider) //provider에서 커스텀UserDetailService를 사용
+                .exceptionHandling(exception -> exception
+                        .accessDeniedHandler(new FormAccessDeniedHandler("/denied")))
         ;
         return http.build();
     }
